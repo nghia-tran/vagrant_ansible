@@ -5,14 +5,14 @@
   gather_facts: no
   tasks:
     - name: Build configuration
-      template: src=vqfx.conf.j2 dest=/tmp/{{ inventory_hostname }}.conf
+      template: src=vqfx.conf.j2 dest=tmp/{{ inventory_hostname }}.conf
     - name: Deploy config to device ... please wait
       junos_config:
         update: 'merge'
         src: "/tmp/{{ inventory_hostname }}.conf"
+        src_format: xml
         host: "{{ ansible_ssh_host }}"
         port: "{{ ansible_ssh_port }}"
         username: root
         password: Juniper
-        #format: text
         #logfile: /tmp/changes.log
